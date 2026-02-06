@@ -5,6 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import gui.Consultorio.GUIConsultorio;
+import gui.Consultorio.GUIMantenimientoConsultorio;
+import gui.Medico.GUIMantenimientoMedico;
+import gui.Medico.GUIMedico;
+import gui.RegistroCitas.GUIRegistroCitasAdicionar;
+import gui.RegistroCitas.GUIRegistroCitasConsultar;
+
 import java.awt.Toolkit;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -14,10 +22,16 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Menu_Principal extends JFrame {
+public class Menu_Principal extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JMenuItem SMMedicoAdicionar;
+	private JMenuItem SMMedicoConModEli;
+	private JMenuItem SMConsultorioAdicionar;
+	private JMenuItem SMConsultorioConModEli;
+	private JMenuItem MRegistroAdicionar;
+	private JMenuItem MRegistroConModEli;
 
 	/**
 	 * Launch the application.
@@ -96,65 +110,37 @@ public class Menu_Principal extends JFrame {
 		Mantenimiento.add(MMedico);
 		
 		
-		JMenuItem SMMedicoAdicionar = new JMenuItem("Adicionar");
+		SMMedicoAdicionar = new JMenuItem("Adicionar");
+		SMMedicoAdicionar.addActionListener(this);
 		MMedico.add(SMMedicoAdicionar);
-		SMMedicoAdicionar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GUIMedico guiMedico = new GUIMedico();
-				guiMedico.setLocationRelativeTo(Menu_Principal.this);
-				guiMedico.setVisible(true);
-			}
-		});
 		
-		JMenuItem SMMedicoConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
+		SMMedicoConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
+		SMMedicoConModEli.addActionListener(this);
 		MMedico.add(SMMedicoConModEli);
-		SMMedicoConModEli.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GUIMantenimientoMedico guidMantMedico = new GUIMantenimientoMedico();
-				guidMantMedico.setLocationRelativeTo(Menu_Principal.this);
-				guidMantMedico.setVisible(true);
-			}
-			
-		});
 		
 		JMenu MConsultorio = new JMenu("Consultorio");
 		Mantenimiento.add(MConsultorio);
 		
 		
-		JMenuItem SMConsultorioAdicionar = new JMenuItem("Adicionar");
+		SMConsultorioAdicionar = new JMenuItem("Adicionar");
+		SMConsultorioAdicionar.addActionListener(this);
 		MConsultorio.add(SMConsultorioAdicionar);
-		SMConsultorioAdicionar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GUIConsultorio guiConsultorio = new GUIConsultorio();
-				guiConsultorio.setLocationRelativeTo(Menu_Principal.this);
-				guiConsultorio.setVisible(true);
-			}
-		});
 		
-		JMenuItem SMConsultorioConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
+		SMConsultorioConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
+		SMConsultorioConModEli.addActionListener(this);
 		MConsultorio.add(SMConsultorioConModEli);
-		SMConsultorioConModEli.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GUIMantenimientoConsultorio guidMantConsultorio = new GUIMantenimientoConsultorio();
-				guidMantConsultorio.setLocationRelativeTo(Menu_Principal.this);
-				guidMantConsultorio.setVisible(true);
-			}
-			
-		});
 		
 		JMenu Registro = new JMenu("Registro Citas");
 		Registro.setIcon(new ImageIcon(Menu_Principal.class.getResource("/img/equipo-medico.png")));
 		Registro.setSelectedIcon(new ImageIcon(Menu_Principal.class.getResource("/img/doctor.png")));
 		menuBar.add(Registro);
 		
-		JMenuItem MRegistroAdicionar = new JMenuItem("Adicionar");
+		MRegistroAdicionar = new JMenuItem("Adicionar");
+		MRegistroAdicionar.addActionListener(this);
 		Registro.add(MRegistroAdicionar);
 		
-		JMenuItem MRegistroConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
+		MRegistroConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
+		MRegistroConModEli.addActionListener(this);
 		Registro.add(MRegistroConModEli);
 		
 		JMenu Consulta = new JMenu("Consulta");
@@ -164,7 +150,7 @@ public class Menu_Principal extends JFrame {
 		JMenuItem MConsultaPaciente = new JMenuItem("Por Paciente");
 		Consulta.add(MConsultaPaciente);
 		
-		JMenuItem MConsultaMedico = new JMenuItem("Por Médico");
+		JMenuItem MConsultaMedico = new JMenuItem("Por M�dico");
 		Consulta.add(MConsultaMedico);
 		
 		JMenuItem MConsultaConsultorio = new JMenuItem("Por Consultorio");
@@ -180,7 +166,7 @@ public class Menu_Principal extends JFrame {
 		JMenuItem MReportePaciente = new JMenuItem("Por Paciente");
 		Reporte.add(MReportePaciente);
 		
-		JMenuItem MReporteMedico = new JMenuItem("Por Médico");
+		JMenuItem MReporteMedico = new JMenuItem("Por M�dico");
 		Reporte.add(MReporteMedico);
 		
 		JMenuItem MReporteConsultorio = new JMenuItem("Por Consultorio");
@@ -221,4 +207,56 @@ public class Menu_Principal extends JFrame {
 
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == MRegistroConModEli) {
+			actionPerformedMRegistroConModEli(e);
+		}
+		if (e.getSource() == MRegistroAdicionar) {
+			actionPerformedMRegistroAdicionar(e);
+		}
+		if (e.getSource() == SMConsultorioConModEli) {
+			actionPerformedSMConsultorioConModEli(e);
+		}
+		if (e.getSource() == SMConsultorioAdicionar) {
+			actionPerformedSMConsultorioAdicionar(e);
+		}
+		if (e.getSource() == SMMedicoConModEli) {
+			actionPerformedSMMedicoConModEli(e);
+		}
+		if (e.getSource() == SMMedicoAdicionar) {
+			actionPerformedSMMedicoAdicionar(e);
+		}
+	}
+	protected void actionPerformedSMMedicoAdicionar(ActionEvent e) {
+		GUIMedico guiMedico = new GUIMedico();
+		guiMedico.setLocationRelativeTo(Menu_Principal.this);
+		guiMedico.setVisible(true);
+	}
+	protected void actionPerformedSMMedicoConModEli(ActionEvent e) {
+        GUIMantenimientoMedico guiMantMedico =new GUIMantenimientoMedico();
+        guiMantMedico.setLocationRelativeTo(Menu_Principal.this);
+        guiMantMedico.setVisible(true);
+	}
+	protected void actionPerformedSMConsultorioAdicionar(ActionEvent e) {
+        GUIConsultorio guiConsultorio = new GUIConsultorio();
+        guiConsultorio.setLocationRelativeTo(Menu_Principal.this);
+        guiConsultorio.setVisible(true);
+	}
+	protected void actionPerformedSMConsultorioConModEli(ActionEvent e) {
+        GUIMantenimientoConsultorio guiMantConsultorio =new GUIMantenimientoConsultorio();
+        guiMantConsultorio.setLocationRelativeTo(Menu_Principal.this);
+        guiMantConsultorio.setVisible(true);
+	}
+	protected void actionPerformedMRegistroAdicionar(ActionEvent e) {
+        GUIRegistroCitasAdicionar paccme =new GUIRegistroCitasAdicionar();
+		
+		paccme.setLocationRelativeTo(Menu_Principal.this);
+		paccme.setVisible(true);
+	}
+	protected void actionPerformedMRegistroConModEli(ActionEvent e) {
+        GUIRegistroCitasConsultar paccme =new GUIRegistroCitasConsultar();
+		
+		paccme.setLocationRelativeTo(Menu_Principal.this);
+		paccme.setVisible(true);
+	}
 }

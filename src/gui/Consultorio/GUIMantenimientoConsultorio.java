@@ -1,4 +1,4 @@
-package gui;
+package gui.Consultorio;
 
 import java.awt.EventQueue;
 
@@ -92,7 +92,7 @@ public class GUIMantenimientoConsultorio extends JFrame {
 		btnBuscar.setIcon(new ImageIcon(GUIMantenimientoConsultorio.class.getResource("/img/paciente.png")));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buscarConsultorio();
+				// buscar consultorio
 			}
 		});
 		btnBuscar.setBounds(370, 23, 120, 25);
@@ -198,7 +198,7 @@ public class GUIMantenimientoConsultorio extends JFrame {
 		btnModificar.setIcon(new ImageIcon(GUIMantenimientoConsultorio.class.getResource("/img/informe-medico.png")));
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				modificarConsultorio();
+				// modificar consultorio
 			}
 		});
 		btnModificar.setBounds(190, 30, 140, 30);
@@ -209,7 +209,7 @@ public class GUIMantenimientoConsultorio extends JFrame {
 		btnEliminar.setIcon(new ImageIcon(GUIMantenimientoConsultorio.class.getResource("/img/informe-medico.png")));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// eliminar
+				// eliminar consultorio
 			}
 		});
 		btnEliminar.setBounds(350, 30, 140, 30);
@@ -247,76 +247,6 @@ public class GUIMantenimientoConsultorio extends JFrame {
 		scrollPane.setViewportView(tblConsultorios);
 		
 		cargarDatosEjemplo();
-	}
-	
-	/**
-	 * Busca consultorios según el criterio seleccionado
-	 */
-	private void buscarConsultorio() {
-		String valorBusqueda = txtBuscar.getText().trim();
-		
-		if (valorBusqueda.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
-				"Por favor ingrese un valor de búsqueda", 
-				"Campo requerido", 
-				JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		
-		limpiarTabla();
-		
-		boolean encontrado = false;
-		
-		if (!encontrado) {
-			JOptionPane.showMessageDialog(this, 
-				"No se encontraron consultorios con el valor: " + valorBusqueda, 
-				"Sin resultados", 
-				JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	
-	/**
-	 * Modifica el consultorio seleccionado
-	 */
-	private void modificarConsultorio() {
-		int fila = tblConsultorios.getSelectedRow();
-		if (fila < 0) {
-			JOptionPane.showMessageDialog(this, 
-				"Por favor seleccione un consultorio de la tabla para modificar", 
-				"Selección requerida", 
-				JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		
-		// Habilitar campos para edición
-		txtNombre.setEditable(true);
-		txtUbicacion.setEditable(true);
-		spnPiso.setEnabled(true);
-		spnCapacidad.setEnabled(true);
-		cmbEstado.setEnabled(true);
-		
-		JOptionPane.showMessageDialog(this, 
-			"Puede modificar los datos del consultorio. Presione un botón para guardar los cambios.", 
-			"Modificación", 
-			JOptionPane.INFORMATION_MESSAGE);
-	}
-	
-	private void cargarDatosDesdeTabla(int fila) {
-		try {
-			txtCodigo.setText(modeloTabla.getValueAt(fila, 0).toString());
-			txtNombre.setText(modeloTabla.getValueAt(fila, 1).toString());
-			spnPiso.setValue(Integer.parseInt(modeloTabla.getValueAt(fila, 2).toString()));
-			txtUbicacion.setText(modeloTabla.getValueAt(fila, 3).toString());
-			spnCapacidad.setValue(Integer.parseInt(modeloTabla.getValueAt(fila, 4).toString()));
-			
-			String estado = modeloTabla.getValueAt(fila, 5).toString();
-			cmbEstado.setSelectedIndex(estado.equals("Activo") ? 0 : 1);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, 
-				"Error al cargar datos: " + e.getMessage(), 
-				"Error", 
-				JOptionPane.ERROR_MESSAGE);
-		}
 	}
 
 	private void limpiarCampos() {

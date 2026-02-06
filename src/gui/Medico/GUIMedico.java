@@ -1,4 +1,4 @@
-package gui;
+package gui.Medico;
 
 import java.awt.EventQueue;
 
@@ -49,27 +49,26 @@ public class GUIMedico extends JFrame {
 	 * Create the frame.
 	 */
 	public GUIMedico() {
-		setTitle("Adicionar Médico");
+		setTitle("Adicionar Medico");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 500, 350);
+		setBounds(100, 100, 501, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		// Título
-		JLabel lblTitulo = new JLabel("REGISTRO DE MÉDICO");
+		JLabel lblTitulo = new JLabel("REGISTRO DE MEDICO");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setBounds(140, 11, 220, 25);
 		contentPane.add(lblTitulo);
 		
 		// Código Médico
-		JLabel lblCodigo = new JLabel("Código Médico:");
+		JLabel lblCodigo = new JLabel("Codigo Medico:");
 		lblCodigo.setBounds(30, 50, 120, 20);
 		contentPane.add(lblCodigo);
 		
 		txtCodigo = new JTextField();
-		txtCodigo.setEditable(false);
 		txtCodigo.setBounds(150, 50, 100, 20);
 		contentPane.add(txtCodigo);
 		txtCodigo.setColumns(10);

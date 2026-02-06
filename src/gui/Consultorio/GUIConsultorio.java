@@ -1,4 +1,4 @@
-package gui;
+package gui.Consultorio;
 
 import java.awt.EventQueue;
 

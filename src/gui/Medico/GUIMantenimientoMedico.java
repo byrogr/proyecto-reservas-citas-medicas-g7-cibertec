@@ -1,4 +1,4 @@
-package gui;
+package gui.Medico;
 
 import java.awt.EventQueue;
 
@@ -20,12 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import clases.Medico;
-
 public class GUIMantenimientoMedico extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField txtBuscar;
 	private JTextField txtCodigo;
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
@@ -34,7 +33,6 @@ public class GUIMantenimientoMedico extends JFrame {
 	private JComboBox<String> cmbEstado;
 	private JTable tblMedicos;
 	private DefaultTableModel modeloTabla;
-	private JTextField txtBuscar;
 	private JComboBox<String> cmbBuscarPor;
 
 	/**
@@ -66,7 +64,7 @@ public class GUIMantenimientoMedico extends JFrame {
 		contentPane.setLayout(null);
 		
 		// Título
-		JLabel lblTitulo = new JLabel("CONSULTA DE MÉDICOS");
+		JLabel lblTitulo = new JLabel("CONSULTA DE MEDICOS");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setBounds(230, 11, 240, 25);
 		contentPane.add(lblTitulo);
@@ -89,6 +87,7 @@ public class GUIMantenimientoMedico extends JFrame {
 		
 		txtBuscar = new JTextField();
 		txtBuscar.setBounds(250, 25, 250, 22);
+		txtBuscar.setText("");
 		panelBusqueda.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
@@ -96,7 +95,7 @@ public class GUIMantenimientoMedico extends JFrame {
 		btnBuscar.setIcon(new ImageIcon(GUIMantenimientoMedico.class.getResource("/img/paciente.png")));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buscarMedico();
+				// buscar
 			}
 		});
 		btnBuscar.setBounds(510, 23, 120, 25);
@@ -198,7 +197,7 @@ public class GUIMantenimientoMedico extends JFrame {
 		btnModificar.setIcon(new ImageIcon(GUIMantenimientoMedico.class.getResource("/img/informe-medico.png")));
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				modificarMedico();
+				// modificar medico
 			}
 		});
 		btnModificar.setBounds(190, 30, 140, 30);
@@ -245,79 +244,7 @@ public class GUIMantenimientoMedico extends JFrame {
 		};
 		tblMedicos.setModel(modeloTabla);
 		scrollPane.setViewportView(tblMedicos);
-		
 		cargarDatosEjemplo();
-	}
-	
-	/**
-	 * Busca médicos según el criterio seleccionado
-	 */
-	private void buscarMedico() {
-		String criterio = (String) cmbBuscarPor.getSelectedItem();
-		String valorBusqueda = txtBuscar.getText().trim();
-		
-		if (valorBusqueda.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
-				"Por favor ingrese un valor de búsqueda", 
-				"Campo requerido", 
-				JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		
-		limpiarTabla();
-		
-		boolean encontrado = false;
-		if (!encontrado) {
-			JOptionPane.showMessageDialog(this, 
-				"No se encontraron médicos con el criterio: " + criterio + " = " + valorBusqueda, 
-				"Sin resultados", 
-				JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	
-	/**
-	 * Modifica el médico seleccionado
-	 */
-	private void modificarMedico() {
-		int fila = tblMedicos.getSelectedRow();
-		if (fila < 0) {
-			JOptionPane.showMessageDialog(this, 
-				"Por favor seleccione un médico de la tabla para modificar", 
-				"Selección requerida", 
-				JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		
-		// Habilitar campos para edición
-		txtNombres.setEditable(true);
-		txtApellidos.setEditable(true);
-		txtEspecialidad.setEditable(true);
-		txtCmp.setEditable(true);
-		cmbEstado.setEnabled(true);
-		
-		JOptionPane.showMessageDialog(this, 
-			"Puede modificar los datos del médico. Presione un botón para guardar los cambios.", 
-			"Modificación", 
-			JOptionPane.INFORMATION_MESSAGE);
-	}
-	
-
-	private void cargarDatosDesdeTabla(int fila) {
-		try {
-			txtCodigo.setText(modeloTabla.getValueAt(fila, 0).toString());
-			txtNombres.setText(modeloTabla.getValueAt(fila, 1).toString());
-			txtApellidos.setText(modeloTabla.getValueAt(fila, 2).toString());
-			txtEspecialidad.setText(modeloTabla.getValueAt(fila, 3).toString());
-			txtCmp.setText(modeloTabla.getValueAt(fila, 4).toString());
-			
-			String estado = modeloTabla.getValueAt(fila, 5).toString();
-			cmbEstado.setSelectedIndex(estado.equals("Activo") ? 0 : 1);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, 
-				"Error al cargar datos: " + e.getMessage(), 
-				"Error", 
-				JOptionPane.ERROR_MESSAGE);
-		}
 	}
 	
 	private void limpiarCampos() {
