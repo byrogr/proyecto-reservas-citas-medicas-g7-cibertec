@@ -56,7 +56,7 @@ public class GUIConsultarMedico extends JFrame {
 	 * Create the frame.
 	 */
 	public GUIConsultarMedico() {
-		setTitle("Consultar Médico");
+		setTitle("Consultar Medico");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 600);
 		contentPane = new JPanel();
@@ -65,7 +65,7 @@ public class GUIConsultarMedico extends JFrame {
 		contentPane.setLayout(null);
 		
 		// Título
-		JLabel lblTitulo = new JLabel("CONSULTA DE MÉDICOS");
+		JLabel lblTitulo = new JLabel("CONSULTA DE MEDICOS");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setBounds(230, 11, 240, 25);
 		contentPane.add(lblTitulo);
@@ -82,8 +82,7 @@ public class GUIConsultarMedico extends JFrame {
 		panelBusqueda.add(lblBuscarPor);
 		
 		cmbBuscarPor = new JComboBox<String>();
-		cmbBuscarPor.setModel(new DefaultComboBoxModel<String>(
-			new String[] {"Código", "Nombres", "Apellidos", "Especialidad", "CMP"}));
+		cmbBuscarPor.setModel(new DefaultComboBoxModel(new String[] {"Codigo", "Nombres", "Apellidos", "Especialidad", "CMP"}));
 		cmbBuscarPor.setBounds(90, 10, 120, 22);
 		panelBusqueda.add(cmbBuscarPor);
 		
@@ -119,7 +118,7 @@ public class GUIConsultarMedico extends JFrame {
 		panelDatos.setLayout(null);
 		
 		// Código Médico
-		JLabel lblCodigo = new JLabel("Código Médico:");
+		JLabel lblCodigo = new JLabel("Codigo Medico:");
 		lblCodigo.setBounds(30, 15, 120, 20);
 		panelDatos.add(lblCodigo);
 		
@@ -213,7 +212,13 @@ public class GUIConsultarMedico extends JFrame {
 				return false;
 			}
 		};
-		tblMedicos.setModel(modeloTabla);
+		tblMedicos.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Codigo", "Nombres", "Apellidos", "Especialidad", "CMP", "Estado"
+			}
+		));
 		
 		// Evento de selección en la tabla
 		tblMedicos.addMouseListener(new java.awt.event.MouseAdapter() {
