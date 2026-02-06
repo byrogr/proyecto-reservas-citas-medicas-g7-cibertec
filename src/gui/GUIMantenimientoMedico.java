@@ -1,10 +1,11 @@
-package gui.medico;
+package gui;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Medico;
 
-public class GUIConsultarMedico extends JFrame {
+public class GUIMantenimientoMedico extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -43,7 +44,7 @@ public class GUIConsultarMedico extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIConsultarMedico frame = new GUIConsultarMedico();
+					GUIMantenimientoMedico frame = new GUIMantenimientoMedico();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +56,7 @@ public class GUIConsultarMedico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUIConsultarMedico() {
+	public GUIMantenimientoMedico() {
 		setTitle("Consultar Médico");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 600);
@@ -72,132 +73,162 @@ public class GUIConsultarMedico extends JFrame {
 		
 		// Panel de búsqueda
 		JPanel panelBusqueda = new JPanel();
-		panelBusqueda.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelBusqueda.setBounds(20, 45, 645, 60);
+		panelBusqueda.setBorder(new TitledBorder(null, "Buscar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelBusqueda.setBounds(20, 45, 645, 70);
 		contentPane.add(panelBusqueda);
 		panelBusqueda.setLayout(null);
 		
 		JLabel lblBuscarPor = new JLabel("Buscar por:");
-		lblBuscarPor.setBounds(10, 10, 80, 20);
+		lblBuscarPor.setBounds(20, 25, 80, 20);
 		panelBusqueda.add(lblBuscarPor);
 		
 		cmbBuscarPor = new JComboBox<String>();
-		cmbBuscarPor.setModel(new DefaultComboBoxModel<String>(
-			new String[] {"Código", "Nombres", "Apellidos", "Especialidad", "CMP"}));
-		cmbBuscarPor.setBounds(90, 10, 120, 22);
+		cmbBuscarPor.setModel(new DefaultComboBoxModel(new String[] {"Código", "CMP"}));
+		cmbBuscarPor.setBounds(110, 25, 130, 22);
 		panelBusqueda.add(cmbBuscarPor);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(220, 10, 250, 22);
+		txtBuscar.setBounds(250, 25, 250, 22);
 		panelBusqueda.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setIcon(new ImageIcon(GUIConsultarMedico.class.getResource("/img/paciente.png")));
+		btnBuscar.setIcon(new ImageIcon(GUIMantenimientoMedico.class.getResource("/img/paciente.png")));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarMedico();
 			}
 		});
-		btnBuscar.setBounds(480, 8, 120, 25);
+		btnBuscar.setBounds(510, 23, 120, 25);
 		panelBusqueda.add(btnBuscar);
-		
-		JButton btnMostrarTodos = new JButton("Mostrar Todos");
-		btnMostrarTodos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cargarTodosLosMedicos();
-			}
-		});
-		btnMostrarTodos.setBounds(480, 35, 120, 20);
-		panelBusqueda.add(btnMostrarTodos);
 		
 		// Panel de datos del médico
 		JPanel panelDatos = new JPanel();
-		panelDatos.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelDatos.setBounds(20, 115, 645, 180);
+		panelDatos.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelDatos.setBounds(20, 125, 645, 180);
 		contentPane.add(panelDatos);
 		panelDatos.setLayout(null);
 		
 		// Código Médico
 		JLabel lblCodigo = new JLabel("Código Médico:");
-		lblCodigo.setBounds(30, 15, 120, 20);
+		lblCodigo.setBounds(30, 25, 120, 20);
 		panelDatos.add(lblCodigo);
 		
 		txtCodigo = new JTextField();
 		txtCodigo.setEditable(false);
-		txtCodigo.setBounds(150, 15, 100, 20);
+		txtCodigo.setBounds(150, 25, 100, 20);
 		panelDatos.add(txtCodigo);
 		txtCodigo.setColumns(10);
 		
 		// Nombres
 		JLabel lblNombres = new JLabel("Nombres:");
-		lblNombres.setBounds(30, 50, 120, 20);
+		lblNombres.setBounds(30, 60, 120, 20);
 		panelDatos.add(lblNombres);
 		
 		txtNombres = new JTextField();
 		txtNombres.setEditable(false);
-		txtNombres.setBounds(150, 50, 300, 20);
+		txtNombres.setBounds(150, 60, 480, 20);
 		panelDatos.add(txtNombres);
 		txtNombres.setColumns(10);
 		
 		// Apellidos
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(30, 85, 120, 20);
+		lblApellidos.setBounds(30, 95, 120, 20);
 		panelDatos.add(lblApellidos);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setEditable(false);
-		txtApellidos.setBounds(150, 85, 300, 20);
+		txtApellidos.setBounds(150, 95, 480, 20);
 		panelDatos.add(txtApellidos);
 		txtApellidos.setColumns(10);
 		
 		// Especialidad
 		JLabel lblEspecialidad = new JLabel("Especialidad:");
-		lblEspecialidad.setBounds(30, 120, 120, 20);
+		lblEspecialidad.setBounds(30, 130, 120, 20);
 		panelDatos.add(lblEspecialidad);
 		
 		txtEspecialidad = new JTextField();
 		txtEspecialidad.setEditable(false);
-		txtEspecialidad.setBounds(150, 120, 300, 20);
+		txtEspecialidad.setBounds(150, 130, 480, 20);
 		panelDatos.add(txtEspecialidad);
 		txtEspecialidad.setColumns(10);
 		
 		// CMP
 		JLabel lblCmp = new JLabel("CMP:");
-		lblCmp.setBounds(270, 15, 50, 20);
+		lblCmp.setBounds(270, 25, 50, 20);
 		panelDatos.add(lblCmp);
 		
 		txtCmp = new JTextField();
 		txtCmp.setEditable(false);
-		txtCmp.setBounds(330, 15, 120, 20);
+		txtCmp.setBounds(330, 25, 120, 20);
 		panelDatos.add(txtCmp);
 		txtCmp.setColumns(10);
 		
 		// Estado
 		JLabel lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(30, 155, 120, 20);
+		lblEstado.setBounds(470, 25, 60, 20);
 		panelDatos.add(lblEstado);
 		
 		cmbEstado = new JComboBox<String>();
 		cmbEstado.setEnabled(false);
 		cmbEstado.setModel(new DefaultComboBoxModel<String>(new String[] {"Activo", "Inactivo"}));
-		cmbEstado.setBounds(150, 155, 120, 22);
+		cmbEstado.setBounds(530, 25, 100, 22);
 		panelDatos.add(cmbEstado);
+		
+		// Panel de opciones de botones
+		JPanel panelOpciones = new JPanel();
+		panelOpciones.setBorder(new TitledBorder(null, "Opciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelOpciones.setBounds(20, 316, 645, 80);
+		contentPane.add(panelOpciones);
+		panelOpciones.setLayout(null);
+		
+		// Botón Consultar
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.setIcon(new ImageIcon(GUIMantenimientoMedico.class.getResource("/img/paciente.png")));
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// eliminar medico
+			}
+		});
+		btnConsultar.setBounds(30, 30, 140, 30);
+		panelOpciones.add(btnConsultar);
+		
+		// Botón Modificar
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setIcon(new ImageIcon(GUIMantenimientoMedico.class.getResource("/img/informe-medico.png")));
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modificarMedico();
+			}
+		});
+		btnModificar.setBounds(190, 30, 140, 30);
+		panelOpciones.add(btnModificar);
+		
+		// Botón Eliminar
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setIcon(new ImageIcon(GUIMantenimientoMedico.class.getResource("/img/informe-medico.png")));
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// eliminar medico
+			}
+		});
+		btnEliminar.setBounds(350, 30, 140, 30);
+		panelOpciones.add(btnEliminar);
 		
 		// Botón Limpiar
 		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setIcon(new ImageIcon(GUIConsultarMedico.class.getResource("/img/informe-medico.png")));
+		btnLimpiar.setIcon(new ImageIcon(GUIMantenimientoMedico.class.getResource("/img/informe-medico.png")));
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarCampos();
 			}
 		});
-		btnLimpiar.setBounds(480, 140, 130, 30);
-		panelDatos.add(btnLimpiar);
+		btnLimpiar.setBounds(510, 30, 120, 30);
+		panelOpciones.add(btnLimpiar);
 		
 		// Tabla de médicos
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 305, 645, 240);
+		scrollPane.setBounds(20, 405, 645, 140);
 		contentPane.add(scrollPane);
 		
 		tblMedicos = new JTable();
@@ -207,27 +238,14 @@ public class GUIConsultarMedico extends JFrame {
 				"Código", "Nombres", "Apellidos", "Especialidad", "CMP", "Estado"
 			}
 		) {
-			// Hacer que la tabla no sea editable
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 		tblMedicos.setModel(modeloTabla);
-		
-		// Evento de selección en la tabla
-		tblMedicos.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				int fila = tblMedicos.getSelectedRow();
-				if (fila >= 0) {
-					cargarDatosDesdeTabla(fila);
-				}
-			}
-		});
-		
 		scrollPane.setViewportView(tblMedicos);
 		
-		// Cargar datos de ejemplo al iniciar
 		cargarDatosEjemplo();
 	}
 	
@@ -246,16 +264,9 @@ public class GUIConsultarMedico extends JFrame {
 			return;
 		}
 		
-		// Aquí se implementaría la búsqueda real en la base de datos
-		// Por ahora se muestra un mensaje
 		limpiarTabla();
 		
-		// Simulación de búsqueda - en producción se buscaría en la BD
 		boolean encontrado = false;
-		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-			// Lógica de búsqueda simulada
-		}
-		
 		if (!encontrado) {
 			JOptionPane.showMessageDialog(this, 
 				"No se encontraron médicos con el criterio: " + criterio + " = " + valorBusqueda, 
@@ -265,20 +276,32 @@ public class GUIConsultarMedico extends JFrame {
 	}
 	
 	/**
-	 * Carga todos los médicos en la tabla
+	 * Modifica el médico seleccionado
 	 */
-	private void cargarTodosLosMedicos() {
-		limpiarTabla();
-		cargarDatosEjemplo();
+	private void modificarMedico() {
+		int fila = tblMedicos.getSelectedRow();
+		if (fila < 0) {
+			JOptionPane.showMessageDialog(this, 
+				"Por favor seleccione un médico de la tabla para modificar", 
+				"Selección requerida", 
+				JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		// Habilitar campos para edición
+		txtNombres.setEditable(true);
+		txtApellidos.setEditable(true);
+		txtEspecialidad.setEditable(true);
+		txtCmp.setEditable(true);
+		cmbEstado.setEnabled(true);
+		
 		JOptionPane.showMessageDialog(this, 
-			"Se cargaron todos los médicos registrados", 
-			"Información", 
+			"Puede modificar los datos del médico. Presione un botón para guardar los cambios.", 
+			"Modificación", 
 			JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	/**
-	 * Carga los datos de una fila seleccionada de la tabla a los campos
-	 */
+
 	private void cargarDatosDesdeTabla(int fila) {
 		try {
 			txtCodigo.setText(modeloTabla.getValueAt(fila, 0).toString());
@@ -297,9 +320,6 @@ public class GUIConsultarMedico extends JFrame {
 		}
 	}
 	
-	/**
-	 * Limpia todos los campos del formulario
-	 */
 	private void limpiarCampos() {
 		txtCodigo.setText("");
 		txtNombres.setText("");
@@ -311,51 +331,21 @@ public class GUIConsultarMedico extends JFrame {
 		tblMedicos.clearSelection();
 	}
 	
-	/**
-	 * Limpia la tabla
-	 */
+
 	private void limpiarTabla() {
 		while (modeloTabla.getRowCount() > 0) {
 			modeloTabla.removeRow(0);
 		}
 	}
-	
-	/**
-	 * Carga datos de ejemplo en la tabla (simulación)
-	 * En producción, esto cargaría datos desde la base de datos
-	 */
+
 	private void cargarDatosEjemplo() {
-		limpiarTabla();
-		
-		// Datos de ejemplo - En producción vendrían de la base de datos
 		Object[][] datos = {
-			{1001, "Carlos", "García López", "Cardiología", "CMP-12345", "Activo"},
-			{1002, "María", "Rodríguez Silva", "Pediatría", "CMP-23456", "Activo"},
-			{1003, "José", "Martínez Pérez", "Dermatología", "CMP-34567", "Activo"},
-			{1004, "Ana", "López González", "Ginecología", "CMP-45678", "Inactivo"},
-			{1005, "Pedro", "Sánchez Torres", "Traumatología", "CMP-56789", "Activo"},
-			{1006, "Laura", "Fernández Cruz", "Neurología", "CMP-67890", "Activo"},
-			{1007, "Miguel", "Ramírez Vega", "Oftalmología", "CMP-78901", "Activo"},
-			{1008, "Carmen", "Torres Díaz", "Psiquiatría", "CMP-89012", "Inactivo"}
+			{1001, "Roger", "Rojas", "Cardiología", "CMP-12345", "Activo"},
+			{1002, "Juan", "Perez", "Pediatría", "CMP-23456", "Activo"}
 		};
 		
 		for (Object[] fila : datos) {
 			modeloTabla.addRow(fila);
 		}
-	}
-	
-	/**
-	 * Agrega un médico a la tabla
-	 */
-	public void agregarMedicoATabla(Medico medico) {
-		Object[] fila = {
-			medico.getCodMedico(),
-			medico.getNombres(),
-			medico.getApellidos(),
-			medico.getEspecialidad(),
-			medico.getCmp(),
-			medico.getEstado() == 0 ? "Activo" : "Inactivo"
-		};
-		modeloTabla.addRow(fila);
 	}
 }

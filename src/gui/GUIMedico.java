@@ -1,4 +1,4 @@
-package gui.medico;
+package gui;
 
 import java.awt.EventQueue;
 

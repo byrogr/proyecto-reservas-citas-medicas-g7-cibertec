@@ -95,20 +95,56 @@ public class Menu_Principal extends JFrame {
 		JMenu MMedico = new JMenu("Medico");
 		Mantenimiento.add(MMedico);
 		
+		
 		JMenuItem SMMedicoAdicionar = new JMenuItem("Adicionar");
 		MMedico.add(SMMedicoAdicionar);
+		SMMedicoAdicionar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GUIMedico guiMedico = new GUIMedico();
+				guiMedico.setLocationRelativeTo(Menu_Principal.this);
+				guiMedico.setVisible(true);
+			}
+		});
 		
 		JMenuItem SMMedicoConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
 		MMedico.add(SMMedicoConModEli);
+		SMMedicoConModEli.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GUIMantenimientoMedico guidMantMedico = new GUIMantenimientoMedico();
+				guidMantMedico.setLocationRelativeTo(Menu_Principal.this);
+				guidMantMedico.setVisible(true);
+			}
+			
+		});
 		
 		JMenu MConsultorio = new JMenu("Consultorio");
 		Mantenimiento.add(MConsultorio);
 		
+		
 		JMenuItem SMConsultorioAdicionar = new JMenuItem("Adicionar");
 		MConsultorio.add(SMConsultorioAdicionar);
+		SMConsultorioAdicionar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GUIConsultorio guiConsultorio = new GUIConsultorio();
+				guiConsultorio.setLocationRelativeTo(Menu_Principal.this);
+				guiConsultorio.setVisible(true);
+			}
+		});
 		
 		JMenuItem SMConsultorioConModEli = new JMenuItem("Consultar, Modificar, Eliminar");
 		MConsultorio.add(SMConsultorioConModEli);
+		SMConsultorioConModEli.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GUIMantenimientoConsultorio guidMantConsultorio = new GUIMantenimientoConsultorio();
+				guidMantConsultorio.setLocationRelativeTo(Menu_Principal.this);
+				guidMantConsultorio.setVisible(true);
+			}
+			
+		});
 		
 		JMenu Registro = new JMenu("Registro Citas");
 		Registro.setIcon(new ImageIcon(Menu_Principal.class.getResource("/img/equipo-medico.png")));
