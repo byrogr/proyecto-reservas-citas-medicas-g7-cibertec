@@ -22,8 +22,17 @@ proyecto_barberia/
 │   │   ├── Consultorio.java
 │   │   └── Cita.java
 │   ├── gui/
+|   |   |── Consultorio
+|   |   |   |── GUIConsultorio.java
+|   |   |   |── GUIMantenimientoConsultorio.java
+|   |   |── Medico
+|   |   |   |── GUIMedico.java
+|   |   |   |── GUIMantenimientoMedico.java
+|   |   |── RegistroCitas
+|   |   |   |── GUIRegistroCitasAdicionar.java
+|   |   |   |── GUIRegistroCitasConsultar.java
 │   │   └── MenuPrincipal.java
-│   └── resources/
+│   └── img/
 └── bin/
 ```
 
@@ -31,20 +40,20 @@ proyecto_barberia/
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/proyecto_barberia.git
+git clone https://github.com/byrogr/proyecto-reservas-citas-medicas-g7-cibertec.git
 ```
 
 2. Abre el proyecto en tu IDE favorito
 
 3. Asegúrate de que el JDK esté configurado correctamente
 
-4. Compila y ejecuta el proyecto desde la clase principal `MenuPrincipal.java`
+4. Compila y ejecuta el proyecto desde la clase principal `Menu_Principal.java`
 
 ## Ejecución
 
 Para ejecutar el proyecto:
 
-1. Navega hasta la clase `gui.MenuPrincipal`
+1. Navega hasta la clase `gui.Menu_Principal`
 2. Ejecuta el método `main()`
 3. Se abrirá la ventana principal del sistema con el menú de opciones
 
